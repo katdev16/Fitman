@@ -1,3 +1,4 @@
-backend/src/main/java/com/fitman/backend/User/repository/UserRepository.class
-backend/src/main/java/com/fitman/backend/User/model/User.class
-backend/src/main/java/com/fitman/backend/BackendApplication.class
+com/fitman/backend/BackendApplication.class
+com/fitman/backend/WorkoutGroup/controller/workout_groupsController.class
+com/fitman/backend/User/repository/UserRepository.class
+com/fitman/backend/User/model/User.class

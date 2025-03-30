@@ -1,3 +1,7 @@
 /home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/BackendApplication.java
 /home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/User/model/User.java
 /home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/User/repository/UserRepository.java
+/home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/WorkoutGroup/controller/workout_groupsController.java
+/home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/WorkoutGroup/model/workout_groups.java
+/home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/WorkoutGroup/repository/WorkGroupRepository.java
+/home/katlego/Documents/projects/Fitman/backend/src/main/java/com/fitman/backend/WorkoutGroup/service/WorkoutGroupService.java
