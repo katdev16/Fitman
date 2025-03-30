@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,9 +35,13 @@ public class workout_groupsController {
         return workoutGroupService.fetchWorkoutGroups();
     }
 
-    @PostMapping("/workout_groups")
-	public Iterable<workout_groups> Saveworkout_groups(@RequestParam(value = "name", defaultValue = "push") String name) {
-		return workoutGroupService.SaveWorkoutGroups(name, null);
-	}
+    @PostMapping("/workout_groups/save")
+
+    public Iterable<workout_groups> saveWorkoutGroups(
+        @RequestParam("workoutName") String workoutName, 
+        @RequestBody List<String> names) {
+
+        return workoutGroupService.SaveWorkoutGroups(workoutName, names);
+    }
     
 }
