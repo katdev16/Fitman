@@ -28,15 +28,15 @@ public class workout_groupsController {
 	WorkoutGroupService workoutGroupService;
     // Accepts GET requests to /groups?name=chest
 	@GetMapping("/workout_groups")
-    public List<workout_groups> getWorkoutGroups(
+    public List<workout_groups> getExerises(
             @RequestParam(value = "name", defaultValue = "chest") String name) {
 
-        return workoutGroupService.fetchWorkoutGroups(name, 3, 0);
+        return workoutGroupService.fetchWorkoutGroups();
     }
 
     @PostMapping("/workout_groups")
-	public Iterable<workout_groups> Saveworkout_groups(@RequestParam(value = "name", defaultValue = "chest") String name) {
-		return workoutGroupService.Getworkoutgoup();
+	public Iterable<workout_groups> Saveworkout_groups(@RequestParam(value = "name", defaultValue = "push") String name) {
+		return workoutGroupService.SaveWorkoutGroups(name, null);
 	}
     
 }
