@@ -34,9 +34,9 @@ public class workout_groupsController {
         return workoutGroupService.fetchWorkoutGroups(name, 3, 0);
     }
 
-    // @PostMapping("/workout_groups")
-	// public Iterable<workout_groups> Sendworkout_groups(@RequestParam(value = "name", defaultValue = "chest") String name) {
-	// 	return workoutGroupService.Getworkoutgoup();
-	// }
+    @PostMapping("/workout_groups")
+	public Iterable<workout_groups> Saveworkout_groups(@RequestParam(value = "name", defaultValue = "chest") String name) {
+		return workoutGroupService.Getworkoutgoup();
+	}
     
 }

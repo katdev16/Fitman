@@ -1,16 +1,19 @@
 package com.fitman.backend.WorkoutGroup.service;
 import com.fitman.backend.WorkoutGroup.repository.WorkGroupRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.fitman.backend.Exercise.model.exercise;
 import com.fitman.backend.WorkoutGroup.model.workout_groups;
 public class WorkoutGroupService{
     WorkGroupRepository workoutGroupRepository;
@@ -60,5 +63,29 @@ public class WorkoutGroupService{
         // System.out.println("Response: " + response.getBody());
 
         return List.of(response.getBody());
+    }
+
+    public Iterable<workout_groups> SaveWorkoutGroups(String workoutname,List<String> names) {
+        workout_groups workoutGroup = new workout_groups();
+        List<exercise> exercises = new ArrayList<>();
+        // Save the workout groups to the database
+        // This is a placeholder implementation. You should implement the actual saving logic.
+        for (String name : names) {
+            exercise Exercise = workoutGroupRepository.findFirstByNameContainingIgnoreCase(name);
+
+            if (Exercise != null) {
+                exercises.add(Exercise);
+            } else {
+                // Handle case where no exercise was found with the provided name
+                System.out.println("Exercise not found for: " + name);
+            }
+        }
+
+        workoutGroup.setExercises(Exercises);
+
+        // Save the workout group to the repository
+        workoutGroupRepository.save(workoutGroup);
+
+        return workoutGroupRepository.findAll(); 
     }
 }

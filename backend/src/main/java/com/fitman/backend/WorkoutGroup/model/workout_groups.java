@@ -3,6 +3,8 @@ package com.fitman.backend.WorkoutGroup.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fitman.backend.Exercise.model.exercise;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -83,5 +85,24 @@ public class workout_groups {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private List<String> workouts = new ArrayList<>();
+    private List<exercise> workouts = new ArrayList<>();
+
+    // getter and Setter
+   
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public List<exercise>  getWorkouts() {
+        return workouts;
+    }
+    public void setWorkouts(List<exercise> workouts) {
+        this.workouts = workouts;
+    }
+
+
+      
+
 }
