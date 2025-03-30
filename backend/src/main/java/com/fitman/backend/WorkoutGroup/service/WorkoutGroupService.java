@@ -20,9 +20,9 @@ public class WorkoutGroupService{
     
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String BASE_URL = "https://exercisedb.p.rapidapi.com/exercises/bodyPart/{bodyPart}?limit={limit}&offset={offset}";
+    private final String BASE_URL = "https://exercisedb.p.rapidapi.com/exercises?limit=0&offset=0";
 
-    public List<workout_groups> fetchWorkoutGroups(String bodyPart, int limit, int offset) {
+    public List<workout_groups> fetchWorkoutGroups() {
         // Create headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-rapidapi-host", "exercisedb.p.rapidapi.com");
@@ -32,19 +32,18 @@ public class WorkoutGroupService{
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         // URL parameters
-        Map<String, Object> params = Map.of(
-                "bodyPart", bodyPart,
-                "limit", limit,
-                "offset", offset
-        );
+        // Map<String, Object> params = Map.of(
+        //         "limit", limit,
+        //         "offset", offset
+        // );
 
         // Call external API with dynamic URL
         ResponseEntity<workout_groups[]> response = restTemplate.exchange(
                 BASE_URL,  // Dynamic URL
                 HttpMethod.GET,
                 entity,
-                workout_groups[].class,
-                params
+                workout_groups[].class
+                // params
         );
         // Check if the response is successful
         if (!response.getStatusCode().is2xxSuccessful()) {
@@ -68,22 +67,21 @@ public class WorkoutGroupService{
     public Iterable<workout_groups> SaveWorkoutGroups(String workoutname,List<String> names) {
         workout_groups workoutGroup = new workout_groups();
         List<exercise> exercises = new ArrayList<>();
-        // Save the workout groups to the database
-        // This is a placeholder implementation. You should implement the actual saving logic.
+        
         for (String name : names) {
             exercise Exercise = workoutGroupRepository.findFirstByNameContainingIgnoreCase(name);
 
             if (Exercise != null) {
                 exercises.add(Exercise);
             } else {
-                // Handle case where no exercise was found with the provided name
+              
                 System.out.println("Exercise not found for: " + name);
             }
         }
 
-        workoutGroup.setExercises(Exercises);
+        workoutGroup.setWorkouts(exercises);
+        workoutGroup.setName(workoutname);
 
-        // Save the workout group to the repository
         workoutGroupRepository.save(workoutGroup);
 
         return workoutGroupRepository.findAll(); 
