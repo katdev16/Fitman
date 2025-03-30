@@ -1,5 +1,6 @@
 package com.fitman.backend.ExerciseSchedule.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,6 @@ public class ExerciseScheduleController {
     public ExerciseSchedule createExerciseSchedule(@PathVariable int day) {
         // Logic to create a new exercise schedule for the specified day
         // You can use a service class to save data to the database or perform any other operations
-        return exerciseScheduleService.createExerciseSchedule(day, ["chest"]);
+        return exerciseScheduleService.createExerciseSchedule(day, List.of("chest"));
     }
 }
