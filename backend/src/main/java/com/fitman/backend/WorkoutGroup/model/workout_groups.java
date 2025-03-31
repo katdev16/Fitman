@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -85,6 +86,7 @@ public class workout_groups {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @OneToMany
     private List<exercise> workouts = new ArrayList<>();
 
     // getter and Setter
@@ -95,6 +97,7 @@ public class workout_groups {
     public void setName(String name) {
         this.name = name;
     }
+   
     public List<exercise>  getWorkouts() {
         return workouts;
     }

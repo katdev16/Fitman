@@ -3,6 +3,7 @@ package com.fitman.backend.Exercise.model;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ public class exercise {
     private String name;
     private String target;
 
+    
     @ElementCollection
     private List<String> secondaryMuscles;
 
+    
     @ElementCollection
     private List<String> instructions;
 
