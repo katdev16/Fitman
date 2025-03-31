@@ -13,6 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,6 +21,7 @@ import com.fitman.backend.Exercise.model.exercise;
 
 import com.fitman.backend.Exercise.repository.exerciserepository;
 import com.fitman.backend.WorkoutGroup.model.workout_groups;
+@Service 
 public class exerciseservice{
     WorkGroupRepository workoutGroupRepository;
     private final exerciserepository exerciseRepository;
