@@ -1,3 +1,5 @@
+package com.fitman.backend.Exercise.service;
+
 package com.fitman.backend.WorkoutGroup.service;
 import com.fitman.backend.WorkoutGroup.repository.WorkGroupRepository;
 
@@ -17,14 +19,14 @@ import com.fitman.backend.Exercise.model.exercise;
 
 import com.fitman.backend.Exercise.repository.exerciserepository;
 import com.fitman.backend.WorkoutGroup.model.workout_groups;
-public class WorkoutGroupService{
+public class exerciseservice{
     WorkGroupRepository workoutGroupRepository;
     
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String BASE_URL = "https://exercisedb.p.rapidapi.com/exercises?limit=0&offset=0";
 
-    public List<workout_groups> fetchWorkoutGroups() {
+    public List<exercise> fetchWorkoutGroups() {
         // Create headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-rapidapi-host", "exercisedb.p.rapidapi.com");
@@ -40,20 +42,18 @@ public class WorkoutGroupService{
         // );
 
         // Call external API with dynamic URL
-        ResponseEntity<workout_groups[]> response = restTemplate.exchange(
+        ResponseEntity<exercise[]> response = restTemplate.exchange(
                 BASE_URL,  // Dynamic URL
                 HttpMethod.GET,
                 entity,
-                workout_groups[].class
+                exercise[].class
                 // params
         );
         // Check if the response is successful
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Failed to fetch data from external API");
-        }
-        // Print the response body
-        // Assuming the response body is an array of workout_groups
-        workout_groups[] workoutGroups = response.getBody();
+
+        exercise[] workoutGroups = response.getBody();
         if (workoutGroups == null) {
             throw new RuntimeException("No data found in the response");
         }
@@ -62,30 +62,7 @@ public class WorkoutGroupService{
 
 
         // System.out.println("Response: " + response.getBody());
-
+        exerciserepository.saveAll(workoutGroups);
         return List.of(response.getBody());
-    }
-
-    public Iterable<workout_groups> SaveWorkoutGroups(String workoutname,List<String> names) {
-        workout_groups workoutGroup = new workout_groups();
-        List<exercise> exercises = new ArrayList<>();
-        
-        for (String name : names) {
-            exercise Exercise = exerciserepository.findFirstByNameContainingIgnoreCase(name);
-
-            if (Exercise != null) {
-                exercises.add(Exercise);
-            } else {
-              
-                System.out.println("Exercise not found for: " + name);
-            }
-        }
-
-        workoutGroup.setWorkouts(exercises);
-        workoutGroup.setName(workoutname);
-
-        workoutGroupRepository.save(workoutGroup);
-
-        return workoutGroupRepository.findAll(); 
     }
 }
