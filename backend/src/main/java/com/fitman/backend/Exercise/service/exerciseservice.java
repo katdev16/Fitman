@@ -1,6 +1,6 @@
 package com.fitman.backend.Exercise.service;
 
-package com.fitman.backend.WorkoutGroup.service;
+
 import com.fitman.backend.WorkoutGroup.repository.WorkGroupRepository;
 
 import java.util.ArrayList;
@@ -15,12 +15,18 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fitman.backend.Exercise.model.exercise;
 
 import com.fitman.backend.Exercise.repository.exerciserepository;
 import com.fitman.backend.WorkoutGroup.model.workout_groups;
 public class exerciseservice{
     WorkGroupRepository workoutGroupRepository;
+    private final exerciserepository exerciseRepository;
+
+    public exerciseservice(exerciserepository exerciseRepository) {
+        this.exerciseRepository = exerciseRepository;
+    }
     
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -52,17 +58,18 @@ public class exerciseservice{
         // Check if the response is successful
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Failed to fetch data from external API");
-
-        exercise[] workoutGroups = response.getBody();
+        }
+       exercise[] workoutGroups = response.getBody();
         if (workoutGroups == null) {
             throw new RuntimeException("No data found in the response");
         }
-        // Print the response body          
+        exerciseRepository.saveAll(Arrays.asList(workoutGroups));
         System.out.println("Response: " + Arrays.toString(workoutGroups));
 
 
         // System.out.println("Response: " + response.getBody());
-        exerciserepository.saveAll(workoutGroups);
+        exerciseRepository.saveAll(Arrays.asList(workoutGroups));
+        exerciseRepository.findAll();
         return List.of(response.getBody());
     }
 }

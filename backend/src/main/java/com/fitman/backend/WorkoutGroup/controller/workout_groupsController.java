@@ -28,12 +28,12 @@ public class workout_groupsController {
 
 	WorkoutGroupService workoutGroupService;
     // Accepts GET requests to /groups?name=chest
-	@GetMapping("/workout_groups")
-    public List<workout_groups> getExerises(
-            @RequestParam(value = "name", defaultValue = "chest") String name) {
+	// @GetMapping("/workout_groups")
+    // public List<workout_groups> getExerises(
+    //         @RequestParam(value = "name", defaultValue = "chest") String name) {
 
-        return workoutGroupService.fetchWorkoutGroups();
-    }
+    //     return workoutGroupService.fetchWorkoutGroups();
+    // }
 
     @PostMapping("/workout_groups/save")
 
