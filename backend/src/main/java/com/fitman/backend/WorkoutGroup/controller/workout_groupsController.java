@@ -7,6 +7,7 @@ import com.fitman.backend.WorkoutGroup.model.workout_groups;
 import com.fitman.backend.WorkoutGroup.service.WorkoutGroupService;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,14 +38,24 @@ public class workout_groupsController {
 
     //     return workoutGroupService.fetchWorkoutGroups();
     // }
+    @Autowired  // Ensure Spring injects the service
+    public workout_groupsController(WorkoutGroupService workoutGroupService) {
+        this.workoutGroupService = workoutGroupService;
+    }
 
-    @PostMapping("/workout_groups/save")
-
+    @PostMapping("/workoutgroups/save")
     public Iterable<workout_groups> saveWorkoutGroups(
         @RequestParam("workoutName") String workoutName, 
         @RequestBody List<String> names) {
 
         return workoutGroupService.SaveWorkoutGroups(workoutName, names);
+    }
+
+
+
+    @GetMapping("/find")
+    public workout_groups getWorkoutByName(@RequestParam String name) {
+        return workoutGroupService.getWorkoutGroupByName(name);
     }
     
 }

@@ -1,4 +1,4 @@
-package com.fitman.backend.controller;
+package com.fitman.backend.Exercise.controller;
 
 import java.util.List;
 

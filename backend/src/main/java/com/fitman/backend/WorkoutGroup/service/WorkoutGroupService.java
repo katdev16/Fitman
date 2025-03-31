@@ -11,12 +11,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.stereotype.Service;
 
 import com.fitman.backend.Exercise.model.exercise;
 
 import com.fitman.backend.Exercise.repository.exerciserepository;
 import com.fitman.backend.WorkoutGroup.model.workout_groups;
+@Service
 public class WorkoutGroupService{
 
     private final WorkGroupRepository workoutGroupRepository;
@@ -27,9 +28,14 @@ public class WorkoutGroupService{
         this.workoutGroupRepository = workoutGroupRepository;
         this.exerciseRepository = exerciseRepository;
     }
+
+    public workout_groups getWorkoutGroupByName(String workoutName) {
+        return workoutGroupRepository.findByNameIgnoreCase(workoutName);
+    }
     
 
     public Iterable<workout_groups> SaveWorkoutGroups(String workoutname,List<String> names) {
+        System.out.println("Method used");
         workout_groups workoutGroup = new workout_groups();
         List<exercise> exercises = new ArrayList<>();
         

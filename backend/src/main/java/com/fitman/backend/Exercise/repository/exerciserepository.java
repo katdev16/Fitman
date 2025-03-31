@@ -9,5 +9,4 @@ import com.fitman.backend.WorkoutGroup.model.workout_groups;
 
 public interface exerciserepository extends CrudRepository<exercise, Integer> {
     exercise findFirstByNameContainingIgnoreCase(String name);
-
 }
