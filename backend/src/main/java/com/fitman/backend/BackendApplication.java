@@ -1,4 +1,4 @@
-package backend.src.main.java.com.fitman.backend;
+package com.fitman.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
