@@ -5,15 +5,22 @@ import Footer from './components/Footer';
 import GuidePage from './pages/GuidePage';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import LoginForm from './components/LoginForm';
 import DocsPage from './pages/DocsPage';
 import AddExercisePage from './pages/AddExercisePage';
 import { ThemeContext } from './context/theme';
 import PageNotFound from './components/PageNotFound';
 import ContributorsPage from './pages/ContributorsPage';
 import SchedulePage from './pages/SchedulePage';
+import { useLocation } from "react-router-dom";
 
 function App() {
   const { theme } = useContext(ThemeContext);
+  const location = useLocation(); // Get the current route
+
+  // Check if we are on the login page
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <div
       style={{
@@ -23,7 +30,10 @@ function App() {
         link: theme.link,
       }}
     >
-      <Navbar />
+      {/* Show Navbar only if NOT on login page */}
+      {!isLoginPage && <Navbar />}
+     
+      {/* <Navbar /> */}
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/GuidePage' element={<GuidePage />} />
@@ -33,7 +43,11 @@ function App() {
         <Route path='/AddExercisePage' element={<AddExercisePage />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
-      <Footer />
+
+
+            {/* Show Footer only if NOT on login page */}
+            {!isLoginPage && <Footer />}
+      {/* <Footer /> */}
     </div>
   );
 }
