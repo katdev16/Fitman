@@ -36,6 +36,7 @@ public class workout_groupsController {
     // public List<workout_groups> getExerises(
     //         @RequestParam(value = "name", defaultValue = "chest") String name) {
 
+<<<<<<< Updated upstream
     //     return workoutGroupService.fetchWorkoutGroups();
     // }
     @Autowired  // Ensure Spring injects the service
@@ -58,4 +59,32 @@ public class workout_groupsController {
         return workoutGroupService.getWorkoutGroupByName(name);
     }
     
+=======
+    @GetMapping("/workout_groups")
+	public workout_groups Getworkout_groups(@RequestParam(value = "name", defaultValue = "chest") String name) {
+		return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        // example data: 
+        // {
+        //     "id": 1,
+        //     "name": "chest",
+        //     "description": "chest workout",
+        //     "exercises": [
+        //         {
+        //             "id": 1,
+        //             "name": "bench press",
+        //             "description": "bench press workout",
+        //             "sets": 3,
+        //             "reps": 10
+        //         },
+        //         {
+        //             "id": 2,
+        //             "name": "push up",
+        //             "description": "push up workout",
+        //             "sets": 3,
+        //             "reps": 10
+        //         }
+        //     ]
+        // }
+	}
+>>>>>>> Stashed changes
 }
