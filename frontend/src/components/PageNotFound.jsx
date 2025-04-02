@@ -9,10 +9,10 @@ const PageNotFound = () => {
         <div className={`min-h-screen flex items-center justify-center ${Theme.theme.background} ${Theme.theme.color}`}>
             <div className="max-w-md w-full rounded-md shadow-lg p-8 transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800">
                 <div className="text-center">
-                    <h1 className="text-6xl font-bold text-gray-800 dark:text-white">404</h1>
-                    <h2 className="mt-4 text-3xl font-bold text-gray-800 dark:text-white">Page not found</h2>
+                    {/* <h1 className="text-6xl font-bold text-gray-800 dark:text-white">404</h1> */}
+                    <h2 className="mt-4 text-3xl font-bold text-gray-800 dark:text-white">🚧 This page is still in development 🚧</h2>
                     <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-                        The page you are looking for does not exist.
+                    <p>Check back later!</p>
                     </p>
                 </div>
                 <div className="mt-8 flex justify-center">

@@ -82,7 +82,7 @@ export default function Navbar() {
             to="/GuidePage"
             className={({ isActive }) => navLinkClass(isActive, theme)}
           >
-            Guide
+            Exercies
           </NavLink>
         </li>
         <li className="mb-4 sm:mb-0 sm:ml-8 nav-item text-center">
@@ -98,7 +98,7 @@ export default function Navbar() {
             className={({ isActive }) => navLinkClass(isActive, theme)}
             to="/DocsPage"
           >
-            Docs
+            Workout programs
           </NavLink>
         </li>
         <li className="mb-4 sm:mb-0 sm:ml-8 nav-item text-center">
@@ -106,7 +106,7 @@ export default function Navbar() {
             className={({ isActive }) => navLinkClass(isActive, theme)}
             to="/ContributorsPage"
           >
-            Contributors
+            Progress
           </NavLink>
         </li>
       </ul>
