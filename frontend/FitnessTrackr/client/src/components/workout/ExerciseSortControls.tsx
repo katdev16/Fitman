@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
-export type SortOption = "name" | "targetMuscle" | "equipment";
+export type SortOption = "name" | "targetMuscle" | "equipment" | "bodyPart";
 
 interface ExerciseSortControlsProps {
   sortOption: SortOption;
@@ -21,8 +21,8 @@ export const ExerciseSortControls: React.FC<ExerciseSortControlsProps> = ({
         <span className="font-medium">
           {sortOption === "name"
             ? "Name"
-            : sortOption === "targetMuscle"
-            ? "Target Muscle"
+            : sortOption === "bodyPart"
+            ? "bodyPart"
             : "Equipment"}
         </span>
       </div>
@@ -36,12 +36,12 @@ export const ExerciseSortControls: React.FC<ExerciseSortControlsProps> = ({
           Name
         </Button>
         <Button
-          variant={sortOption === "targetMuscle" ? "default" : "outline"}
+          variant={sortOption === "bodyPart" ? "default" : "outline"}
           size="sm"
           className="h-8 text-xs"
-          onClick={() => setSortOption("targetMuscle")}
+          onClick={() => setSortOption("bodyPart")}
         >
-          Target Muscle
+          Body Part
         </Button>
         <Button
           variant={sortOption === "equipment" ? "default" : "outline"}

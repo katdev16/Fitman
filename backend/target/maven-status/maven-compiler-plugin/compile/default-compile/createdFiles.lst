@@ -1,12 +1,9 @@
 com/fitman/backend/Exercise/model/exercise.class
+com/fitman/backend/WorkoutGroup/controller/workout_groupsController.class
 com/fitman/backend/WorkoutGroup/repository/WorkGroupRepository.class
 com/fitman/backend/Config/SecurityConfig.class
 com/fitman/backend/Exercise/repository/exerciserepository.class
-com/fitman/backend/Exercise/controller/exercisecontroller.class
+com/fitman/backend/WorkoutGroup/service/WorkoutGroupService.class
 com/fitman/backend/Exercise/service/exerciseservice.class
 com/fitman/backend/BackendApplication.class
-com/fitman/backend/User/repository/UserRepository.class
-com/fitman/backend/WorkoutGroup/controller/workout_groupsController.class
-com/fitman/backend/WorkoutGroup/service/WorkoutGroupService.class
 com/fitman/backend/WorkoutGroup/model/workout_groups.class
-com/fitman/backend/User/model/User.class

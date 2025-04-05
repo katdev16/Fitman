@@ -9,6 +9,9 @@ export interface User {
 
 // Exercise types
 export interface Exercise {
+  targetMuscle(targetMuscle: any): unknown;
+  equipment(equipment: any): unknown;
+  bodyPart(bodyPart: any): unknown;
   id: number;
   name: string;
   setsReps: string;

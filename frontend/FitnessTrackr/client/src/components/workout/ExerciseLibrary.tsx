@@ -30,8 +30,8 @@ export const ExerciseLibrary: React.FC<ExerciseLibraryProps> = ({
   const muscleGroups = useMemo(() => {
     const uniqueMuscles: string[] = [];
     exercises.forEach(e => {
-      if (!uniqueMuscles.includes(e.targetMuscle)) {
-        uniqueMuscles.push(e.targetMuscle);
+      if (!uniqueMuscles.includes(e.bodyPart)) {
+        uniqueMuscles.push(e.bodyPart);
       }
     });
     return uniqueMuscles;
@@ -57,7 +57,7 @@ export const ExerciseLibrary: React.FC<ExerciseLibraryProps> = ({
         }
         
         // Apply muscle filter
-        if (filterMuscle && exercise.targetMuscle !== filterMuscle) {
+        if (filterMuscle && exercise.bodyPart !== filterMuscle) {
           return false;
         }
         
@@ -72,7 +72,7 @@ export const ExerciseLibrary: React.FC<ExerciseLibraryProps> = ({
         if (sortOption === "name") {
           return a.name.localeCompare(b.name);
         } else if (sortOption === "targetMuscle") {
-          return a.targetMuscle.localeCompare(b.targetMuscle);
+          return a.bodyPart.localeCompare(b.targetMuscle);
         } else {
           return a.equipment.localeCompare(b.equipment);
         }
@@ -123,9 +123,9 @@ export const ExerciseLibrary: React.FC<ExerciseLibraryProps> = ({
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 text-sm p-2"
               >
                 <option value="">All Muscles</option>
-                {muscleGroups.map((muscle) => (
-                  <option key={muscle} value={muscle}>
-                    {muscle}
+                {muscleGroups.map((bodyPart) => (
+                  <option key={bodyPart} value={bodyPart}>
+                    {bodyPart}
                   </option>
                 ))}
               </select>
