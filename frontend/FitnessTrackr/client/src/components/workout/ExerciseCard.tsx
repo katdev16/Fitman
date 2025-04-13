@@ -35,9 +35,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
       onClick={handleClick}
     >
       <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded overflow-hidden mr-3">
-        {exercise.imageUrl && (
+        {exercise.gifUrl && (
+       
           <img
-            src={exercise.imageUrl}
+            src={exercise.gifUrl}
             alt={exercise.name}
             className="h-full w-full object-cover"
           />

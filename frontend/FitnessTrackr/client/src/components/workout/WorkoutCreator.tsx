@@ -159,15 +159,15 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
       if (!searchQuery.trim()) return true;
       return (
         exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exercise.targetMuscle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        exercise.bodyPart.toLowerCase().includes(searchQuery.toLowerCase()) ||
         exercise.equipment.toLowerCase().includes(searchQuery.toLowerCase())
       );
     })
     .sort((a, b) => {
       if (sortOption === "name") {
         return a.name.localeCompare(b.name);
-      } else if (sortOption === "targetMuscle") {
-        return a.targetMuscle.localeCompare(b.targetMuscle);
+      } else if (sortOption === "bodyPart") {
+        return a.bodyPart.localeCompare(b.bodyPart);
       } else {
         return a.equipment.localeCompare(b.equipment);
       }

@@ -13,9 +13,9 @@ export const ExerciseDetailCard: React.FC<ExerciseDetailCardProps> = ({
     <div className="border rounded-md p-3 hover:border-primary hover:bg-gray-50 transition-colors duration-200">
       <div className="flex">
         <div className="h-16 w-16 bg-gray-200 rounded overflow-hidden mr-3 flex-shrink-0">
-          {exercise.imageUrl && (
+          {exercise.gifUrl && (
             <img
-              src={exercise.imageUrl}
+              src={exercise.gifUrl}
               alt={exercise.name}
               className="h-full w-full object-cover"
             />

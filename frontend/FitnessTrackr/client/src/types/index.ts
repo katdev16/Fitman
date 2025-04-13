@@ -9,6 +9,7 @@ export interface User {
 
 // Exercise types
 export interface Exercise {
+  gifUrl: string;
   targetMuscle(targetMuscle: any): unknown;
   equipment(equipment: any): unknown;
   bodyPart(bodyPart: any): unknown;
