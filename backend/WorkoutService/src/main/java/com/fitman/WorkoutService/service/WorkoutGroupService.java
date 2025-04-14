@@ -26,7 +26,7 @@ import com.fitman.WorkoutService.model.WorkoutServiceGroups;
 public class WorkoutGroupService{
        private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private List<Exercise> message;
+    private List<Exercise> exercisesMq;
 
     private final WorkoutGroupRepository workoutGroupRepository;
     // private final exerciserepository exerciseRepository;
@@ -44,7 +44,7 @@ public class WorkoutGroupService{
 
     public void SaveWorkoutGroups() {
         // System.out.println("Received " + exercises.size() + " exercises");
-        System.out.println("saved "+message);
+        System.out.println("saved "+exercisesMq);
         // WorkoutServiceGroups group = new WorkoutServiceGroups();
         // group.setWorkouts(exercises);
 
@@ -75,7 +75,51 @@ public class WorkoutGroupService{
     // public void SaveWorkoutGroups(String message) {
     //     System.out.println("Received message: " + message);
     // }
-
+    public void saveWorkout(String workoutName, List<String> submittedExercises) {
+        List<String> invalidNames = new ArrayList<>();
+        List<Exercise> validExercises = new ArrayList<>();
+    
+        for (String submitted : submittedExercises) {
+            for (Exercise exerciseFromMq : exercisesMq) {
+                if (exerciseFromMq.getName().equalsIgnoreCase(submitted)) {
+                    // Create a new Exercise entity for your own DB
+                    Exercise localExercise = new Exercise();
+                    localExercise.setName(exerciseFromMq.getName());
+                    localExercise.setBodyPart(exerciseFromMq.getBodyPart());
+                    localExercise.setEquipment(exerciseFromMq.getEquipment());
+                    localExercise.setGifUrl(exerciseFromMq.getGifUrl());
+                    localExercise.setTarget(exerciseFromMq.getTarget());
+                    localExercise.setInstructions(exerciseFromMq.getInstructions());
+                    localExercise.setSecondaryMuscles(exerciseFromMq.getSecondaryMuscles());
+                    
+                    validExercises.add(localExercise);
+                    System.out.println("✅ Valid exercise: " + localExercise.getName());
+                    break;
+                }
+            }
+    
+            boolean matched = validExercises.stream()
+                    .anyMatch(e -> e.getName().equalsIgnoreCase(submitted));
+    
+            if (!matched) {
+                invalidNames.add(submitted);
+                System.out.println("❌ Invalid exercise name: " + submitted);
+            }
+        }
+    
+        if (!invalidNames.isEmpty()) {
+            System.out.println("⚠️ Invalid exercise names: " + invalidNames);
+            return; // or throw an exception if needed
+        }
+    
+        WorkoutServiceGroups group = new WorkoutServiceGroups();
+        group.setName(workoutName);
+        group.setWorkouts(validExercises); // all managed by your local DB
+    
+        workoutGroupRepository.save(group);
+        System.out.println("💾 Workout saved: " + workoutName);
+    }
+    
     @RabbitListener(queues = "exercises.created.queue") 
     public void MQConsumer(String message) {
        
@@ -86,6 +130,8 @@ public class WorkoutGroupService{
                 message,
                 new TypeReference<List<Exercise>>() {}
             );
+            exercisesMq= exercises;
+            System.out.println("Received " + exercises.size() + " exercises");
 
             // Use the deserialized objects
             for (Exercise ex : exercises) {

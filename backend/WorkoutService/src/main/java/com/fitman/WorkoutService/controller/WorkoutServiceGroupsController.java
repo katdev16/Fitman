@@ -44,11 +44,12 @@ public class WorkoutServiceGroupsController {
     }
 
     @PostMapping("/workoutgroups/save")
-    public void saveWorkoutGroups() {
-        // @RequestParam("workoutName") String workoutName, 
-        // @RequestBody List<String> names) {
+    public void saveWorkoutGroups( 
+        @RequestParam("workoutName") String workoutName, 
+        @RequestBody List<String> names) {
 
-        workoutGroupService.SaveWorkoutGroups();
+        workoutGroupService.saveWorkout(workoutName, names);
+        
     }
 
 
