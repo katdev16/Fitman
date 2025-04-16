@@ -13,8 +13,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,5 +61,42 @@ public class WorkoutServiceGroupsController {
     public WorkoutServiceGroups getWorkoutByName(@RequestParam String name) {
         return workoutGroupService.getWorkoutGroupByName(name);
     }
+
+
+    @GetMapping
+    public List<WorkoutServiceGroups> getAll() {
+        return workoutGroupService.getAllWorkouts();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WorkoutServiceGroups> getById(@PathVariable int id) {
+        return workoutGroupService.getWorkoutById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        boolean deleted = workoutGroupService.deleteWorkout(id);
+        return deleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateWorkout(
+            @PathVariable int id,
+            @RequestParam String workoutName,
+            @RequestBody List<String> submittedExercises
+    ) {
+        String result = workoutGroupService.updateWorkout(id, workoutName, submittedExercises);
+        if (result.startsWith("Invalid")) {
+            return ResponseEntity.badRequest().body(result);
+        } else if (result.equals("Workout not found")) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(result);
+        }
+    }
+
+
     
 }

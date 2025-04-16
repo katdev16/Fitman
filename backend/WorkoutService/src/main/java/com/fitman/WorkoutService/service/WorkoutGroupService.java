@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -145,5 +146,64 @@ public class WorkoutGroupService{
             e.printStackTrace();
         }
     }
+
+    public List<WorkoutServiceGroups> getAllWorkouts() {
+        return (List<WorkoutServiceGroups>) workoutGroupRepository.findAll();
+    }
+
+    public Optional<WorkoutServiceGroups> getWorkoutById(int id) {
+        return workoutGroupRepository.findById(id);
+    }
+
+    public boolean deleteWorkout(Integer id) {
+        if (workoutGroupRepository.existsById(id)) {
+            workoutGroupRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public String updateWorkout(int id, String workoutName, List<String> submittedExercises) {
+        Optional<WorkoutServiceGroups> optionalGroup = workoutGroupRepository.findById(id);
+        if (optionalGroup.isEmpty()) {
+            return "Workout not found";
+        }
+
+        List<Exercise> validExercises = new ArrayList<>();
+        List<String> invalidNames = new ArrayList<>();
+
+        for (String submitted : submittedExercises) {
+            Exercise match = exercisesMq.stream()
+                .filter(ex -> ex.getName().equalsIgnoreCase(submitted))
+                .findFirst()
+                .orElse(null);
+
+            if (match != null) {
+                Exercise newEx = new Exercise();
+                newEx.setName(match.getName());
+                newEx.setBodyPart(match.getBodyPart());
+                newEx.setEquipment(match.getEquipment());
+                newEx.setGifUrl(match.getGifUrl());
+                newEx.setTarget(match.getTarget());
+                newEx.setInstructions(match.getInstructions());
+                newEx.setSecondaryMuscles(match.getSecondaryMuscles());
+                validExercises.add(newEx);
+            } else {
+                invalidNames.add(submitted);
+            }
+        }
+
+        if (!invalidNames.isEmpty()) {
+            return "Invalid exercise names: " + invalidNames;
+        }
+
+        WorkoutServiceGroups group = optionalGroup.get();
+        group.setName(workoutName);
+        group.setWorkouts(validExercises);
+        workoutGroupRepository.save(group);
+
+        return "Workout updated successfully";
+    }
+
 }
 
