@@ -23,7 +23,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/profile" component={Profile} />
       <Route path="/workouts" component={Workouts} />
-      {/* <Route path="/nutrition" component={Nutrition} /> */}
+      <Route path="/nutrition" component={Nutrition} />
       {/* <Route path="/progress" component={Progress} /> */}
       <Route component={NotFound} />
     </Switch>

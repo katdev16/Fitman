@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/api")  // Base path for the API
+@RequestMapping("/api/workoutgroups")  // Base path for the API
 public class WorkoutServiceGroupsController {
     // This class is responsible for handling HTTP requests related to workout groups.
     // It will contain methods to create, read, update, and delete workout groups.
@@ -46,7 +46,7 @@ public class WorkoutServiceGroupsController {
         this.workoutGroupService = workoutGroupService;
     }
 
-    @PostMapping("/workoutgroups/save")
+    @PostMapping("/save")
     public void saveWorkoutGroups( 
         @RequestParam("workoutName") String workoutName, 
         @RequestBody List<String> names) {

@@ -1,0 +1,15 @@
+# server:
+#   port: 8080
+
+# spring:
+#   application:
+#     name: ApiGateway
+#   cloud:
+#     gateway:
+#       routes:
+#         - id: WorkoutService
+#           uri: http://localhost:8081  # replace with the actual URL of your service
+          
+#         - id: ExerciseService
+#           uri: http://localhost:8082  # replace with actual URL
+         
