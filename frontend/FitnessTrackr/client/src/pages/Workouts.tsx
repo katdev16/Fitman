@@ -7,223 +7,98 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Exercise, Workout } from "@/types";
 
-// Import the refactored components
 import { WorkoutCard } from "@/components/workout/WorkoutCard";
 import { WorkoutCreator } from "@/components/workout/WorkoutCreator";
 import { WorkoutInProgress } from "@/components/workout/WorkoutInProgress";
 import { ExerciseLibrary } from "@/components/workout/ExerciseLibrary";
 
-// Mock data
-// const exercises = [
+// const initialWorkouts: Workout[] = [
 //   {
 //     id: 1,
-//     name: "Bench Presss",
-//     muscles: "Chest, Triceps, Shoulders",
-//     type: "Strength",
-//     level: "Beginner",
-//     equipment: "Barbell, Bench",
-//     targetMuscle: "Chest",
-//     imageUrl: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+//     name: "Upper Body Strength",
+//     duration: 45,
+//     intensity: "Medium",
+//     completed: false,
+//     date: new Date().toISOString(),
+//     exercises: [
+//       {
+//         exerciseId: 1,
+//         exerciseName: "Bench Press",
+//         sets: [
+//           { reps: 10, weight: 135, completed: false },
+//           { reps: 10, weight: 135, completed: false },
+//           { reps: 10, weight: 135, completed: false }
+//         ]
+//       },
+//       {
+//         exerciseId: 3,
+//         exerciseName: "Pull-ups",
+//         sets: [
+//           { reps: 8, weight: 0, completed: false },
+//           { reps: 8, weight: 0, completed: false },
+//           { reps: 8, weight: 0, completed: false }
+//         ]
+//       },
+//       {
+//         exerciseId: 5,
+//         exerciseName: "Shoulder Press",
+//         sets: [
+//           { reps: 12, weight: 95, completed: false },
+//           { reps: 12, weight: 95, completed: false },
+//           { reps: 12, weight: 95, completed: false }
+//         ]
+//       }
+//     ]
 //   },
 //   {
 //     id: 2,
-//     name: "Squats",
-//     muscles: "Quadriceps, Hamstrings, Glutes",
-//     type: "Strength",
-//     level: "Intermediate",
-//     equipment: "Barbell, Squat Rack",
-//     targetMuscle: "Quadriceps",
-//     imageUrl: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+//     name: "Lower Body Power",
+//     duration: 50,
+//     intensity: "High",
+//     completed: false,
+//     date: new Date().toISOString(),
+//     exercises: [
+//       {
+//         exerciseId: 2,
+//         exerciseName: "Squats",
+//         sets: [
+//           { reps: 8, weight: 185, completed: false },
+//           { reps: 8, weight: 185, completed: false },
+//           { reps: 8, weight: 185, completed: false },
+//           { reps: 8, weight: 185, completed: false }
+//         ]
+//       },
+//       {
+//         exerciseId: 4,
+//         exerciseName: "Deadlifts",
+//         sets: [
+//           { reps: 8, weight: 225, completed: false },
+//           { reps: 8, weight: 225, completed: false },
+//           { reps: 8, weight: 225, completed: false }
+//         ]
+//       }
+//     ]
 //   },
 //   {
 //     id: 3,
-//     name: "Pull-ups",
-//     muscles: "Back, Biceps, Shoulders",
-//     type: "Strength",
-//     level: "Advanced",
-//     equipment: "Pull-up Bar",
-//     targetMuscle: "Back",
-//     imageUrl: "https://images.unsplash.com/photo-1600618528240-fb9fc964b853?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 4,
-//     name: "Deadlifts",
-//     muscles: "Back, Hamstrings, Glutes",
-//     type: "Strength",
-//     level: "Intermediate",
-//     equipment: "Barbell",
-//     targetMuscle: "Back",
-//     imageUrl: "https://images.unsplash.com/photo-1598575306580-d94e3e5d0d07?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 5,
-//     name: "Shoulder Press",
-//     muscles: "Shoulders, Triceps",
-//     type: "Strength",
-//     level: "Beginner",
-//     equipment: "Dumbbells",
-//     targetMuscle: "Shoulders",
-//     imageUrl: "https://images.unsplash.com/photo-1586401426077-df913431eb41?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 6,
-//     name: "Plank",
-//     muscles: "Core, Shoulders, Back",
-//     type: "Bodyweight",
-//     level: "Beginner",
-//     equipment: "None",
-//     targetMuscle: "Core",
-//     imageUrl: "https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 7,
-//     name: "Bicep Curls",
-//     muscles: "Biceps, Forearms",
-//     type: "Strength",
-//     level: "Beginner",
-//     equipment: "Dumbbells",
-//     targetMuscle: "Biceps",
-//     imageUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 8,
-//     name: "Leg Press",
-//     muscles: "Quadriceps, Hamstrings, Glutes",
-//     type: "Strength",
-//     level: "Beginner",
-//     equipment: "Leg Press Machine",
-//     targetMuscle: "Quadriceps",
-//     imageUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 9,
-//     name: "Tricep Dips",
-//     muscles: "Triceps, Chest, Shoulders",
-//     type: "Strength",
-//     level: "Intermediate",
-//     equipment: "Dip Station",
-//     targetMuscle: "Triceps",
-//     imageUrl: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 10,
-//     name: "Lat Pulldown",
-//     muscles: "Back, Biceps",
-//     type: "Strength",
-//     level: "Beginner",
-//     equipment: "Cable Machine",
-//     targetMuscle: "Back",
-//     imageUrl: "https://images.unsplash.com/photo-1597452485677-d661670d9640?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 11,
-//     name: "Push-ups",
-//     muscles: "Chest, Triceps, Shoulders, Core",
-//     type: "Bodyweight",
-//     level: "Beginner",
-//     equipment: "None",
-//     targetMuscle: "Chest",
-//     imageUrl: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
-//   },
-//   {
-//     id: 12,
-//     name: "Crunches",
-//     muscles: "Abdominals",
-//     type: "Bodyweight",
-//     level: "Beginner",
-//     equipment: "None",
-//     targetMuscle: "Core",
-//     imageUrl: "https://images.unsplash.com/photo-1601422407194-19dfbf1cdfc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+//     name: "Core Crusher",
+//     duration: 30,
+//     intensity: "Medium",
+//     completed: false,
+//     date: new Date().toISOString(),
+//     exercises: [
+//       {
+//         exerciseId: 6,
+//         exerciseName: "Plank",
+//         sets: [
+//           { reps: 1, weight: 0, completed: false },
+//           { reps: 1, weight: 0, completed: false },
+//           { reps: 1, weight: 0, completed: false }
+//         ]
+//       }
+//     ]
 //   }
 // ];
-
-const initialWorkouts: Workout[] = [
-  {
-    id: 1,
-    name: "Upper Body Strength",
-    duration: 45,
-    intensity: "Medium",
-    completed: false,
-    date: new Date().toISOString(),
-    exercises: [
-      {
-        exerciseId: 1,
-        exerciseName: "Bench Press",
-        sets: [
-          { reps: 10, weight: 135, completed: false },
-          { reps: 10, weight: 135, completed: false },
-          { reps: 10, weight: 135, completed: false }
-        ]
-      },
-      {
-        exerciseId: 3,
-        exerciseName: "Pull-ups",
-        sets: [
-          { reps: 8, weight: 0, completed: false },
-          { reps: 8, weight: 0, completed: false },
-          { reps: 8, weight: 0, completed: false }
-        ]
-      },
-      {
-        exerciseId: 5,
-        exerciseName: "Shoulder Press",
-        sets: [
-          { reps: 12, weight: 95, completed: false },
-          { reps: 12, weight: 95, completed: false },
-          { reps: 12, weight: 95, completed: false }
-        ]
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: "Lower Body Power",
-    duration: 50,
-    intensity: "High",
-    completed: false,
-    date: new Date().toISOString(),
-    exercises: [
-      {
-        exerciseId: 2,
-        exerciseName: "Squats",
-        sets: [
-          { reps: 8, weight: 185, completed: false },
-          { reps: 8, weight: 185, completed: false },
-          { reps: 8, weight: 185, completed: false },
-          { reps: 8, weight: 185, completed: false }
-        ]
-      },
-      {
-        exerciseId: 4,
-        exerciseName: "Deadlifts",
-        sets: [
-          { reps: 8, weight: 225, completed: false },
-          { reps: 8, weight: 225, completed: false },
-          { reps: 8, weight: 225, completed: false }
-        ]
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: "Core Crusher",
-    duration: 30,
-    intensity: "Medium",
-    completed: false,
-    date: new Date().toISOString(),
-    exercises: [
-      {
-        exerciseId: 6,
-        exerciseName: "Plank",
-        sets: [
-          { reps: 1, weight: 0, completed: false },
-          { reps: 1, weight: 0, completed: false },
-          { reps: 1, weight: 0, completed: false }
-        ]
-      }
-    ]
-  }
-];
 
 const Workouts = () => {
 
@@ -257,11 +132,60 @@ const Workouts = () => {
   }, []);
 
 
+  
+
+
+
+
+
+  
+
+
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/workouts");
+  
+        if (!res.ok) {
+          throw new Error("Failed to fetch workouts");
+        }
+  
+        const data: Workout[] = await res.json();
+        console.log("Fetched workouts:", data);
+        setWorkouts(data);
+      } catch (error) {
+        console.error("Error fetching workouts:", error);
+        toast({
+          title: "Error",
+          description: "Could not load workouts from the server.",
+          variant: "destructive",
+        });
+      }
+    };
+  
+    fetchWorkouts();
+  }, []);
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
 
   const { isAuthenticated, user } = useAuth();
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  const [workouts, setWorkouts] = useState<Workout[]>(initialWorkouts);
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [selectedTab, setSelectedTab] = useState("all");
   const [favoriteWorkouts, setFavoriteWorkouts] = useState<number[]>([]);
   
