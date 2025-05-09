@@ -115,7 +115,7 @@ public class WorkoutGroupService{
     
         WorkoutServiceGroups group = new WorkoutServiceGroups();
         group.setName(workoutName);
-        group.setWorkouts(validExercises); // all managed by your local DB
+        group.setExercises(validExercises); // all managed by your local DB
     
         workoutGroupRepository.save(group);
         System.out.println("💾 Workout saved: " + workoutName);
@@ -199,7 +199,7 @@ public class WorkoutGroupService{
 
         WorkoutServiceGroups group = optionalGroup.get();
         group.setName(workoutName);
-        group.setWorkouts(validExercises);
+        group.setExercises(validExercises);
         workoutGroupRepository.save(group);
 
         return "Workout updated successfully";
