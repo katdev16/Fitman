@@ -110,7 +110,7 @@ const Workouts = () => {
     const fetchData = async () => {
       try {
         // Fetch exercises from the API
-        const res = await fetch('http://localhost:8080/api/exercises');
+        const res = await fetch('http://localhost:8082/api/exercises');
         
         // Make sure the response is valid
         if (!res.ok) {
@@ -138,13 +138,13 @@ const Workouts = () => {
 
 
 
-  
+
 
 
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/workouts");
+        const res = await fetch("http://localhost:8081/api/workouts");
   
         if (!res.ok) {
           throw new Error("Failed to fetch workouts");
@@ -223,7 +223,8 @@ const Workouts = () => {
     }
   })();
 
-  const handleCreateWorkout = (workout: Workout) => {
+  const handleCreateWorkout = async (workout: Workout) => {
+
     // If we're editing an existing workout
     if (workoutToEdit) {
       const updatedWorkouts = workouts.map(w => 
@@ -236,6 +237,46 @@ const Workouts = () => {
         title: "Workout Updated",
         description: `"${workout.name}" has been updated.`,
       });
+
+
+
+      // Extract workout name and exercise names
+    const workoutName = workout.name;
+    const exerciseNames = workout.exercises.map(e => e.exerciseName);
+
+    try {
+      const res = await fetch(`http://localhost:8081/api/workoutgroups/save?workoutName=${encodeURIComponent(workoutName)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(exerciseNames)
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to save workout to the server");
+      }
+
+      toast({
+        title: "Workout Created",
+        description: `"${workoutName}" has been saved.`,
+      });
+
+      // Optionally update local state
+      setWorkouts([...workouts, workout]);
+
+    } catch (error) {
+      console.error("Error saving workout:", error);
+      toast({
+        title: "Save Failed",
+        description: "Workout could not be saved to the server.",
+        variant: "destructive",
+      });
+    }
+
+
+
+
     } else {
       // Creating a new workout
       setWorkouts([...workouts, workout]);

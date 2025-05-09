@@ -64,6 +64,7 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
   }, [workoutToEdit, resetForm]);
 
   const handleAddExercise = (exercise: Exercise) => {
+    alert(exercise.name);
     if (selectedExercises.some((e) => e.exerciseId === exercise.id)) {
       return;
     }
@@ -79,6 +80,7 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
     };
 
     setSelectedExercises([...selectedExercises, newExercise]);
+    console.log(selectedExercises);
   };
 
   const handleRemoveExercise = (exerciseId: number) => {
@@ -105,9 +107,11 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
     };
 
     setSelectedExercises(updatedExercises);
+    console.log(selectedExercises);
   };
 
   const handleAddSet = (exerciseIndex: number) => {
+    // alert("handleAddSet");
     const updatedExercises = [...selectedExercises];
     const lastSet = updatedExercises[exerciseIndex].sets.slice(-1)[0];
     const newSet = {
@@ -133,25 +137,75 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
     };
 
     setSelectedExercises(updatedExercises);
+    console.log(selectedExercises);
   };
 
-  const handleCreateWorkout = () => {
+  // const handleCreateWorkout = () => {
+  //   const workout: Workout = {
+  //     // If we're editing an existing workout, keep its id; otherwise, create a new one
+  //     id: workoutToEdit ? workoutToEdit.id : Date.now(),
+  //     name: workoutName,
+  //     duration,
+  //     intensity,
+  //     exercises: selectedExercises,
+  //     // Keep the completed status if editing, or set to false if new
+  //     completed: workoutToEdit ? workoutToEdit.completed : false,
+  //     // Keep the original date if editing, or set to now if new
+  //     date: workoutToEdit ? workoutToEdit.date : new Date().toISOString(),
+  //   };
+
+  //   onSave(workout);
+  //   resetForm();
+  // };
+
+
+
+  const handleCreateWorkout = async () => {
     const workout: Workout = {
-      // If we're editing an existing workout, keep its id; otherwise, create a new one
       id: workoutToEdit ? workoutToEdit.id : Date.now(),
       name: workoutName,
       duration,
       intensity,
       exercises: selectedExercises,
-      // Keep the completed status if editing, or set to false if new
       completed: workoutToEdit ? workoutToEdit.completed : false,
-      // Keep the original date if editing, or set to now if new
       date: workoutToEdit ? workoutToEdit.date : new Date().toISOString(),
     };
+    // alert("clicked");
 
-    onSave(workout);
-    resetForm();
+      // Debugging: Log selected exercises and workout details
+  console.log("Workout to save:", workout);
+  
+ 
+  
+    // Prepare data for backend
+    const exerciseNames = selectedExercises.map(ex => ex.exerciseName);
+  
+    // Log the extracted exercise names
+    console.log("Exercise names being sent:", exerciseNames);
+  
+    try {
+      const res = await fetch(`http://localhost:8081/api/workout-groups/save?workoutName=${encodeURIComponent(workoutName)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(exerciseNames),
+      });
+  
+      if (!res.ok) {
+        throw new Error('Failed to save workout group to server');
+      }
+  
+      onSave(workout);  // Updates state/UI
+      resetForm();      // Reset local state
+    } catch (error) {
+      console.error("Error saving workout group:", error);
+      alert("Could not save workout group. Try again later.");
+    }
   };
+  
+
+
 
   // Filter and sort exercises based on search and sort option
   const filteredExercises = exercises
@@ -174,6 +228,7 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
     });
 
   return (
+   
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
