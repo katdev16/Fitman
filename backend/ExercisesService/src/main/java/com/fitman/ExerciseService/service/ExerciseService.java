@@ -35,7 +35,7 @@ public class ExerciseService{
     
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String BASE_URL = "https://exercisedb.p.rapidapi.com/exercises?limit=2&offset=0";
+    private final String BASE_URL = "https://exercisedb.p.rapidapi.com/exercises?limit=0&offset=0";
 
     public List<exercise> fetchWorkoutGroups() {
         // Create headers
