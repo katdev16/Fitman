@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fitman.WorkoutService.ExerciseService.model.Exercise;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -85,9 +86,11 @@ import lombok.Setter;
 public class WorkoutServiceGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String name;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.PERSIST) // or CascadeType.ALL
+
     private List<Exercise> exercises = new ArrayList<>();
 
 
@@ -124,7 +127,7 @@ public class WorkoutServiceGroups {
 
     // public WorkoutServiceGroups() {}
 
-    public WorkoutServiceGroups(Long id, String name, int duration, Intensity intensity,
+    public WorkoutServiceGroups(int id, String name, int duration, Intensity intensity,
                    List<Exercise> exercises, boolean completed, LocalDate date) {
         this.id = id;
         this.name = name;
@@ -138,11 +141,11 @@ public class WorkoutServiceGroups {
 
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

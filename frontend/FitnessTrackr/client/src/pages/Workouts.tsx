@@ -243,6 +243,9 @@ const Workouts = () => {
       // Extract workout name and exercise names
     const workoutName = workout.name;
     const exerciseNames = workout.exercises.map(e => e.exerciseName);
+    console.log('---------------------');
+    console.log(exerciseNames);
+    console.log('---------------------');
 
     try {
       const res = await fetch(`http://localhost:8081/api/workoutgroups/save?workoutName=${encodeURIComponent(workoutName)}`, {
@@ -290,20 +293,59 @@ const Workouts = () => {
     setIsCreateModalOpen(false);
   };
 
-  const handleDeleteWorkout = (id: number) => {
-    const updatedWorkouts = workouts.filter(workout => workout.id !== id);
-    setWorkouts(updatedWorkouts);
+  // const handleDeleteWorkout = (id: number) => {
+  //   const updatedWorkouts = workouts.filter(workout => workout.id !== id);
+  //   setWorkouts(updatedWorkouts);
     
-    // Also remove from favorites if present
-    if (favoriteWorkouts.includes(id)) {
-      setFavoriteWorkouts(favoriteWorkouts.filter(workoutId => workoutId !== id));
+  //   // Also remove from favorites if present
+  //   if (favoriteWorkouts.includes(id)) {
+  //     setFavoriteWorkouts(favoriteWorkouts.filter(workoutId => workoutId !== id));
+  //   }
+    
+  //   toast({
+  //     title: "Workout Deleted",
+  //     description: "The workout has been removed from your list.",
+  //   });
+  // };
+
+  const handleDeleteWorkout = async (id: number) => {
+
+    try {
+      const response = await fetch(`http://localhost:8081/api/workoutgroups/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        const updatedWorkouts = workouts.filter(workout => workout.id !== id);
+        setWorkouts(updatedWorkouts);
+  
+        if (favoriteWorkouts.includes(id)) {
+          setFavoriteWorkouts(favoriteWorkouts.filter(workoutId => workoutId !== id));
+        }
+  
+        toast({
+          title: "Workout Deleted",
+          description: "The workout has been removed from your list.",
+        });
+      } else if (response.status === 404) {
+        toast({
+          title: "Workout Not Found",
+          description: "The workout could not be found.",
+          variant: "destructive",
+        });
+      } else {
+        throw new Error("Failed to delete workout.");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong while deleting the workout.",
+        variant: "destructive",
+      });
+      console.error("Delete error:", error);
     }
-    
-    toast({
-      title: "Workout Deleted",
-      description: "The workout has been removed from your list.",
-    });
   };
+  
 
   const toggleFavorite = (id: number) => {
     if (favoriteWorkouts.includes(id)) {
@@ -344,10 +386,57 @@ const Workouts = () => {
     });
   };
   
-  const handleEditWorkout = (workout: Workout) => {
+  // const handleEditWorkout = (workout: Workout) => {
+  //   setWorkoutToEdit(workout);
+  //   setIsCreateModalOpen(true);
+  // };
+
+  const handleEditWorkout = async (workout: Workout) => {
+    try {
+      const response = await fetch(`http://localhost:8081/api/workoutgroups/${workout.id}?workoutName=${encodeURIComponent(workout.name)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(workout.submittedExercises), // Replace with correct field
+      });
+  
+      if (response.ok) {
+        const message = await response.text(); // Backend returns a message string
+        toast({
+          title: "Workout Updated",
+          description: message,
+        });
+  
+        // Optionally re-fetch or update state here
+      } else if (response.status === 400) {
+        const error = await response.text();
+        toast({
+          title: "Invalid Workout",
+          description: error,
+          variant: "destructive",
+        });
+      } else if (response.status === 404) {
+        toast({
+          title: "Workout Not Found",
+          description: "The workout could not be found for editing.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Update workout error:", error);
+      toast({
+        title: "Error",
+        description: "An error occurred while updating the workout.",
+        variant: "destructive",
+      });
+    }
+  
+    // Open modal after successful API response (optional based on flow)
     setWorkoutToEdit(workout);
     setIsCreateModalOpen(true);
   };
+  
 
   if (!isAuthenticated) {
     return null;

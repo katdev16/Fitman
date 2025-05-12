@@ -2,15 +2,20 @@ package com.fitman.WorkoutService.ExerciseService.model;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class Exercise {
     
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     private String bodyPart;

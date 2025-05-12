@@ -184,7 +184,7 @@ export const WorkoutCreator: React.FC<WorkoutCreatorProps> = ({
     console.log("Exercise names being sent:", exerciseNames);
   
     try {
-      const res = await fetch(`http://localhost:8081/api/workout-groups/save?workoutName=${encodeURIComponent(workoutName)}`, {
+      const res = await fetch(`http://localhost:8081/api/workoutgroups/save?workoutName=${encodeURIComponent(workoutName)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

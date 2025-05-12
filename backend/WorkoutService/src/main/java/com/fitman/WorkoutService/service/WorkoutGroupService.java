@@ -171,16 +171,20 @@ public class WorkoutGroupService{
 
         List<Exercise> validExercises = new ArrayList<>();
         List<String> invalidNames = new ArrayList<>();
+       
 
         for (String submitted : submittedExercises) {
+            System.out.println("submitted: "+submitted);
             Exercise match = exercisesMq.stream()
                 .filter(ex -> ex.getName().equalsIgnoreCase(submitted))
                 .findFirst()
                 .orElse(null);
 
             if (match != null) {
+                System.out.println("matched");
                 Exercise newEx = new Exercise();
                 newEx.setName(match.getName());
+                System.out.println("new name: "+ newEx.getName());
                 newEx.setBodyPart(match.getBodyPart());
                 newEx.setEquipment(match.getEquipment());
                 newEx.setGifUrl(match.getGifUrl());
@@ -197,9 +201,11 @@ public class WorkoutGroupService{
             return "Invalid exercise names: " + invalidNames;
         }
 
-        WorkoutServiceGroups group = optionalGroup.get();
+        WorkoutServiceGroups group = new WorkoutServiceGroups();
+        group.setId(id);
         group.setName(workoutName);
         group.setExercises(validExercises);
+        System.out.println("some names: "+validExercises.get(0).getName());
         workoutGroupRepository.save(group);
 
         return "Workout updated successfully";
