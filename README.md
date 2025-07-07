@@ -17,7 +17,7 @@
 <hr></hr>
 <h1>📂 Folder Structure</h1>
 
-C:.
+<pre>
 ├───.idea
 ├───.mvn
 │   └───wrapper
@@ -148,7 +148,7 @@ C:.
         ├───generated-test-sources
         │   └───test-annotations
         └───test-classes
-
+</pre>
    
 Key Features
 
