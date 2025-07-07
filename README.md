@@ -16,6 +16,139 @@
 </ul>
 <hr></hr>
 <h1>📂 Folder Structure</h1>
+
+C:.
+├───.idea
+├───.mvn
+│   └───wrapper
+├───ApiGateWay
+│   └───src
+│       └───main
+│           ├───java
+│           │   └───com
+│           │       └───fitman
+│           │           └───ApiGateway
+│           │               ├───Config
+│           │               └───resources
+│           └───resources
+├───ExercisesService
+│   ├───.idea
+│   ├───src
+│   │   └───main
+│   │       ├───java
+│   │       │   └───com
+│   │       │       └───fitman
+│   │       │           └───ExerciseService
+│   │       │               ├───Config
+│   │       │               ├───controller
+│   │       │               ├───model
+│   │       │               ├───repository
+│   │       │               └───service
+│   │       └───resources
+│   └───target
+│       ├───classes
+│       │   └───com
+│       │       └───fitman
+│       │           └───ExerciseService
+│       │               ├───Config
+│       │               ├───controller
+│       │               ├───model
+│       │               ├───repository
+│       │               └───service
+│       ├───generated-sources
+│       │   └───annotations
+│       ├───generated-test-sources
+│       │   └───test-annotations
+│       └───test-classes
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───fitman
+│   │   │           └───backend
+│   │   │               ├───Config
+│   │   │               ├───Exercise
+│   │   │               │   ├───controller
+│   │   │               │   ├───model
+│   │   │               │   ├───repository
+│   │   │               │   └───service
+│   │   │               └───WorkoutGroup
+│   │   │                   ├───controller
+│   │   │                   ├───model
+│   │   │                   ├───repository
+│   │   │                   └───service
+│   │   └───resources
+│   └───test
+│       └───java
+│           └───com
+│               └───example
+│                   └───backend
+├───target
+│   ├───classes
+│   │   └───com
+│   │       └───fitman
+│   │           └───backend
+│   │               ├───Config
+│   │               ├───Exercise
+│   │               │   ├───controller
+│   │               │   ├───model
+│   │               │   ├───repository
+│   │               │   └───service
+│   │               └───WorkoutGroup
+│   │                   ├───controller
+│   │                   ├───model
+│   │                   ├───repository
+│   │                   └───service
+│   ├───generated-sources
+│   │   └───annotations
+│   ├───generated-test-sources
+│   │   └───test-annotations
+│   ├───maven-status
+│   │   └───maven-compiler-plugin
+│   │       └───compile
+│   │           └───default-compile
+│   └───test-classes
+│       └───com
+│           └───example
+│               └───backend
+└───WorkoutService
+    ├───.idea
+    ├───src
+    │   └───main
+    │       ├───java
+    │       │   └───com
+    │       │       └───fitman
+    │       │           └───WorkoutService
+    │       │               ├───Config
+    │       │               ├───controller
+    │       │               ├───DTO
+    │       │               ├───ExerciseService
+    │       │               │   ├───DTO
+    │       │               │   └───model
+    │       │               ├───model
+    │       │               ├───repository
+    │       │               └───service
+    │       └───resources
+    └───target
+        ├───classes
+        │   └───com
+        │       └───fitman
+        │           └───WorkoutService
+        │               ├───Config
+        │               ├───controller
+        │               ├───DTO
+        │               ├───ExerciseService
+        │               │   ├───DTO
+        │               │   └───model
+        │               ├───model
+        │               ├───repository
+        │               └───service
+        ├───generated-sources
+        │   └───annotations
+        ├───generated-test-sources
+        │   └───test-annotations
+        └───test-classes
+
    
 Key Features
 
