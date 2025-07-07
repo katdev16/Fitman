@@ -12,7 +12,7 @@
 
 <h1>🏗️ Architecture</h1>
 <uL>
-<li>Pattern: Model-View-Controller (MVC)</li>
+<li>Pattern: Microservices</li>
 </ul>
 <hr></hr>
 <h1>📂 Folder Structure</h1>
