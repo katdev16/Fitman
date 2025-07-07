@@ -32,29 +32,6 @@ Key Features
     
     Uses MQTT/WebSockets for real-time data sync.
 
-🔥 4. AI-Powered Fitness & Meal Plan Adjustments
 
 
-    ML model (FastAPI + Python) predicts optimal workout routines.
-    
-    Analyzes historical workout data to adjust difficulty dynamically.
-    
-    Suggests meal plans based on calorie intake and goals.
-
-💬 5. Social & Gamification Features
-
-    Users can challenge friends, compete on leaderboards, and earn badges.
-    
-    Implement live workout sessions with coaches via WebRTC.
-    
-    Community-driven fitness Q&A forum.
-
-🚀 6. API Gateway & Cloud Scaling
-
-
-    Secure all microservices behind an API Gateway (Spring Cloud Gateway).
-    
-    Implement rate limiting, authentication, and load balancing.
-    
-    Deploy using Docker + Kubernetes.
 
