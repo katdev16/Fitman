@@ -157,8 +157,6 @@ Key Features
 
       Users enter fitness goals (weight loss, muscle gain, endurance).
 
-      AI/ML generates customized workout routines and meal plans.
-
       The system adjusts based on user progress and biometric data.
 
 📌 2. Multi-Service Architecture (Microservices)
@@ -168,21 +166,11 @@ Key Features
     Workout Service → Tracks exercises, sets, reps, and calories burned.
     
     Diet Service → Suggests meals based on fitness goals.
-    
-    Analytics Service → Uses AI/ML to adjust fitness plans dynamically.
-    
-    Social Service → Allows users to share progress and join fitness challenges.
 
 📊 3. Real-Time Workout & Health Monitoring (IoT & WebSockets)
 
-
     Users can sync smart devices (e.g., Fitbit, Apple Watch) for live tracking.
     
-    Data updates in real-time via WebSockets (e.g., heart rate, steps, calories burned).
-    
-    Uses MQTT/WebSockets for real-time data sync.
-
-
 
 <hr></hr>
 <h1>📖 API Endpoints</h1>
@@ -215,20 +203,20 @@ Key Features
     </tr>
     <tr>
       <td><strong>GET</strong></td>
-      <td><code>/tasks</code></td>
-      <td>Retrieves all tasks</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <td><strong>GET</strong></td>
-      <td><code>/tasks/{id}</code></td>
-      <td>Retrieves a task by its ID</td>
+      <td><code>http://localhost:8082/api/exercises</code></td>
+      <td>Retrieves all exercises</td>
       <td>None</td>
     </tr>
     <tr>
       <td><strong>PUT</strong></td>
-      <td><code>/tasks/{id}</code></td>
-      <td>Updates a task by its ID</td>
+      <td><code>http://localhost:8081/api/workoutgroups/1?workoutName=testing2</code></td>
+      <td>Edit Workout</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><strong>Delete</strong></td>
+      <td><code>http://localhost:8081/api/workoutgroups/4</td>
+      <td>Delete workout</td>
       <td>
         <pre>
 {
@@ -241,15 +229,15 @@ Key Features
       </td>
     </tr>
     <tr>
-      <td><strong>DELETE</strong></td>
-      <td><code>/tasks/{id}</code></td>
-      <td>Deletes a task by its ID</td>
+      <td><strong>GET</strong></td>
+      <td><code>http://localhost:8081/api/workoutgroups</code></td>
+      <td>Get workoutgroups</td>
       <td>None</td>
     </tr>
     <tr>
-      <td><strong>PATCH</strong></td>
-      <td><code>/tasks/{id}/complete</code></td>
-      <td>Marks a task as completed</td>
+      <td><strong>POST</strong></td>
+      <td><code>http://localhost:8081/api/workoutgroups/save?workoutName=New</code></td>
+      <td>create workout</td>
       <td>None</td>
     </tr>
   </tbody>
