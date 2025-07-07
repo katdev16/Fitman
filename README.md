@@ -1,5 +1,9 @@
 # Fitman
 
+1. run RabbitMq
+2. run each service
+3. run react
+   
 Key Features
 
 
